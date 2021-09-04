@@ -1,38 +1,43 @@
-const path = require('path');
-const express = require('express');
-const session = require('express-session');
+const express = require("express");
+const { ApolloServer } = require('apollo-server-express')
+const path = require("path");
 
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const { typeDefs, resolvers} = require('./schema');
+const {authMiddleware} = require('./utils/auth');
+const db = require("./config/config.js");
 
-
-const sequelize = require('./config/config');
-const helpers = require('./utils/helpers');
-
-const app = express();
 const PORT = process.env.PORT || 3001;
-
-const sess = {
-  secret: 'Super secret secret',
-  cookie: {},
-  resave: false,
-  saveUninitialized: true,
-  store: new SequelizeStore({
-    db: sequelize,
-  }),
-};
-
-app.use(session(sess));
+const app = express();
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: authMiddleware
+})
 
 
-app.use(express.json());
+server.applyMiddleware({app})
+
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
 
-app.use(require('./controllers'));
+// if we're in production, serve client/build as static assets
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/build")));
+}
 
-  app.listen(PORT, () => {
-    console.log('Now listening')
-    sequelize.sync({force:false})
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, "../client/build/index.html"))
+})
+
+  db.once("open", () => {
+    app.listen(PORT, () =>{
+      console.log(`🌍 Now listening on localhost:${PORT}`)
+      console.log(`Use GraphQL http://localhost:${PORT}${server.graphqlPath}`)
+
+    }
+    );
   });
+
+
 

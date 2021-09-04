@@ -22,5 +22,8 @@
   "homepage": "https://github.com/MT722/make-it-or-break-it#readme",
   "devDependencies": {
     "concurrently": "^5.1.0"
+  },
+  "dependencies": {
+    "graphql": "^15.5.2"
   }
 }
