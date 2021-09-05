@@ -23,6 +23,7 @@ const resolvers = {
           return {token, user}
         },
         login: async (a, {email, password})=>{
+          console.log('logged in user',email );
             const user = await User.findOne({email});
             if (!user){
                 throw new AuthenticationError('Incorrect Email!')
