@@ -1,0 +1,15 @@
+{
+    "databases":[
+        {  
+        userName:'Sam',
+        passWord:'1234',
+        userId:'1'
+      },
+
+        {  
+        userName:'Matthew',
+        passWord:'2345',
+        userId:'2'
+      }
+    ]   
+}
