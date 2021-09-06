@@ -7,10 +7,19 @@ const typeDefs = gql`
     username: String!
 
     email: String
+    savedStocks: [Stock]
 
   }
 
- 
+  type Stock {
+    ticker: ID!
+    name: String!
+  }
+
+  input StockInput {
+    ticker: String!
+    name: String!
+  }
 
   type Auth {
     token: ID!
@@ -27,7 +36,8 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-
+    saveStock(stockData: StockInput!): User
+    removeStock(stockId: ID!): User
   }
 `;
 

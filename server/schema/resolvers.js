@@ -2,6 +2,7 @@ const { User } = require("../Model");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 
+
 const resolvers = {
   Query: {
     me: async (a, b, c) => {
@@ -36,7 +37,18 @@ const resolvers = {
             
             const token = signToken(user)
             return {token, user}
-        }
+        },
+      saveStock: async (a, {stockData}, c)=>{
+        // console.log(ticker, name)
+        console.log(stockData)
+        console.log(c)
+        if(c.user){
+          let res = await User.findByIdAndUpdate({_id: c.user._id}, {$push: {"savedStocks": stockData}}, {new: true});
+          console.log("saveBook result", res);
+          return res;
+      };
+      throw new AuthenticationError('Not logged in!')
+      }
   } 
 };
     
