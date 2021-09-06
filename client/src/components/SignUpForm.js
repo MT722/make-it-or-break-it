@@ -17,13 +17,13 @@ const SignupForm = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [addUser, { error }] = useMutation(ADD_USER);
 
-  useEffect(()=>{
-    if(error){
-      setShowAlert(true)
-    }else{
-      setShowAlert(false)
+  useEffect(() => {
+    if (error) {
+      setShowAlert(true);
+    } else {
+      setShowAlert(false);
     }
-  }, [error])
+  }, [error]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -65,6 +65,7 @@ const SignupForm = () => {
       {/* This is needed for the validation functionality above */}
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         {/* show alert if server response is bad */}
+        <h2>Sign Up</h2>
         <Alert
           dismissible
           onClose={() => setShowAlert(false)}
