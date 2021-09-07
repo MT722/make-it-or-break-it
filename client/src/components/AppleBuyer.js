@@ -31,28 +31,28 @@ const tickerVal = userFormData.stock;
         variables: {stockData: {ticker: res.results[0].ticker, name: res.results[0].name}}
       })
 
-      // let today = new Date();
-      // let dd = String(today.getDate()-3).padStart(2,'0');
-      // let mm = String(today.getMonth()+1).padStart(2,"0");
-      // let yyyy = today.getFullYear();
+      let today = new Date();
+      let dd = String(today.getDate()-3).padStart(2,'0');
+      let mm = String(today.getMonth()+1).padStart(2,"0");
+      let yyyy = today.getFullYear();
 
-      // fetch(`https://api.polygon.io/v1/open-close/${res.results[0].ticker}/${yyyy}-${mm}-${dd}?adjusted=true&apiKey=nKFxEPdEetH2tZBgIrqqmMuFAy3goELs`).then((res)=>res.json()).then((data)=>{ 
-      //   console.log(data)
-      //   setHighLow({
-      //     high: data.high,
-      //     low:data.low
-      //          });
-      // });
+      fetch(`https://api.polygon.io/v1/open-close/${res.results[0].ticker}/${yyyy}-${mm}-${dd}?adjusted=true&apiKey=nKFxEPdEetH2tZBgIrqqmMuFAy3goELs`).then((res)=>res.json()).then((data)=>{ 
+        console.log(data)
+        setHighLow({
+          high: data.high,
+          low:data.low
+               });
+      });
     
 
      
       })
 
-      //then the ticker id has to be passed to the other open/close polygon api to get the closing about
+      // then the ticker id has to be passed to the other open/close polygon api to get the closing about
 
 
       
-        // setSavedStockIds([...savedStockIds, stockToSave.stockId]);
+        setSavedStockIds([...savedStockIds, stockToSave.stockId]);
      
 };
 
