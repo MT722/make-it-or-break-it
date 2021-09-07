@@ -13,6 +13,7 @@ import { setContext } from "@apollo/client/link/context";
 import LoginForm from "./components/LoginForm";
 import AppleBuyerForm from "./components/AppleBuyer";
 import appleBuyerForm from "./components/AppleBuyer";
+import SearchStocksForm from "./components/SearchStocksForm";
 
 const httpLink = createHttpLink({ uri: "/graphql" });
 
@@ -39,7 +40,7 @@ function App() {
         <>
           <Navbar />
           <Switch>
-            <Route exact path="/" component={AppleBuyerForm} />
+            <Route exact path="/" component={SearchStocksForm} />
             {/* <Route exact path="/saved" component={SavedBooks} /> */}
             <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
           </Switch>
