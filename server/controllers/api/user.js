@@ -28,3 +28,15 @@ router.get('/', async (req, res) => {
     res.status(500).json(err)
   }
 });
+
+router.post('/signup', async (req, res) => {
+  try {
+    const userData = await User.create({
+      username: req.body.username,
+      password: req.body.password,
+    });
+  
+    
+}
+ 
+})
